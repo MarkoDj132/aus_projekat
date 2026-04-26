@@ -53,6 +53,23 @@ namespace Modbus.ModbusFunctions
 
             return request;
         }
+        //mozda ispravnije
+        /*
+        public override byte[] PackRequest()
+{
+    byte[] ret_val = new byte[12];
+
+    Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)CommandParameters.TransactionId)), 0, ret_val, 0, 2);
+    Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)CommandParameters.ProtocolId)), 0, ret_val, 2, 2);
+    Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)CommandParameters.Length)), 0, ret_val, 4, 2);
+    ret_val[6] = CommandParameters.UnitId;
+    ret_val[7] = CommandParameters.FunctionCode;
+    Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)((ModbusReadCommandParameters)CommandParameters).StartAddress)), 0, ret_val, 8, 2);
+    Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)(((ModbusReadCommandParameters)CommandParameters).Quantity))), 0, ret_val, 10, 2);
+
+    return ret_val;
+}
+        */
         
 
         /// <inheritdoc />
@@ -84,5 +101,28 @@ namespace Modbus.ModbusFunctions
 
             return result;
         }
+        //mozda ispravnije
+        /*
+        public override Dictionary<Tuple<PointType, ushort>, ushort> ParseResponse(byte[] response)
+{
+    Dictionary<Tuple<PointType, ushort>, ushort> resp = new Dictionary<Tuple<PointType, ushort>, ushort>();
+    if (response[7] != CommandParameters.FunctionCode + 0x80)
+    {
+        var address = BitConverter.ToUInt16(response, 8);
+        var value = BitConverter.ToUInt16(response, 10);
+
+        address = (ushort)IPAddress.NetworkToHostOrder((short)address);
+        value = (ushort)IPAddress.NetworkToHostOrder((short)value);
+
+        resp.Add(new Tuple<PointType, ushort>(PointType.DIGITAL_OUTPUT, address), value);
+    }
+    else
+    {
+        HandeException(response[8]);
+    }
+
+    return resp;
+}
+        */
     }
 }
