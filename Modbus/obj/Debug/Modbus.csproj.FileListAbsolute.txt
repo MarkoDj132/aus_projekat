@@ -1,0 +1,9 @@
+C:\Users\Marko\Desktop\d\dCom\Modbus\bin\Debug\Modbus.dll
+C:\Users\Marko\Desktop\d\dCom\Modbus\bin\Debug\Modbus.pdb
+C:\Users\Marko\Desktop\d\dCom\Modbus\bin\Debug\Common.dll
+C:\Users\Marko\Desktop\d\dCom\Modbus\bin\Debug\Common.pdb
+C:\Users\Marko\Desktop\d\dCom\Modbus\obj\Debug\Modbus.csproj.AssemblyReference.cache
+C:\Users\Marko\Desktop\d\dCom\Modbus\obj\Debug\Modbus.csproj.CoreCompileInputs.cache
+C:\Users\Marko\Desktop\d\dCom\Modbus\obj\Debug\Modbus.csproj.Up2Date
+C:\Users\Marko\Desktop\d\dCom\Modbus\obj\Debug\Modbus.dll
+C:\Users\Marko\Desktop\d\dCom\Modbus\obj\Debug\Modbus.pdb
