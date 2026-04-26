@@ -51,6 +51,21 @@ namespace Modbus.ModbusFunctions
 
             return request;
         }
+        //mozda ispravnije
+        /*public override byte[] PackRequest()
+{
+    byte[] ret_val = new byte[12];
+
+    Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)CommandParameters.TransactionId)), 0, ret_val, 0, 2);
+    Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)CommandParameters.ProtocolId)), 0, ret_val, 2, 2);
+    Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)CommandParameters.Length)), 0, ret_val, 4, 2);
+    ret_val[6] = CommandParameters.UnitId;
+    ret_val[7] = CommandParameters.FunctionCode;
+    Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)((ModbusReadCommandParameters)CommandParameters).StartAddress)), 0, ret_val, 8, 2);
+    Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)(((ModbusReadCommandParameters)CommandParameters).Quantity))), 0, ret_val, 10, 2);
+
+    return ret_val;
+}*/
 
         /// <inheritdoc />
         public override Dictionary<Tuple<PointType, ushort>, ushort> ParseResponse(byte[] response)
@@ -94,5 +109,28 @@ namespace Modbus.ModbusFunctions
 
             return result;
         }
+        //mozda ispravnije
+        /*
+        public override Dictionary<Tuple<PointType, ushort>, ushort> ParseResponse(byte[] response)
+{
+    Dictionary<Tuple<PointType, ushort>, ushort> resp = new Dictionary<Tuple<PointType, ushort>, ushort>();
+    if ((response[7] & 0x80) == 0)
+    {
+        int byteCount = response[8];
+        int quantity = ((ModbusReadCommandParameters)CommandParameters).Quantity;
+        ushort startAddress = ((ModbusReadCommandParameters)CommandParameters).StartAddress;
+        for (int i = 0; i < byteCount / 2; i++)
+        {
+            var value = (ushort)(response[9 + i * 2] << 8 | response[10 + i * 2]);
+            resp.Add(new Tuple<PointType, ushort>(PointType.ANALOG_OUTPUT, (ushort)(startAddress + i)), value);
+        }
+    }
+    else
+    {
+        HandeException(response[8]);
+    }
+    return resp;
+}
+        */
     }
 }
